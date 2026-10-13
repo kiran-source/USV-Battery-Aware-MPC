@@ -1,0 +1,16 @@
+# MATLAB autosave and temporary files
+*.asv
+*.m~
+*.slx.autosave
+
+# Simulink project cache and compilation artifacts
+slprj/
+*.slxc
+codegen/
+
+# Operating System files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store

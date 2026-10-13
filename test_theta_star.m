@@ -1,0 +1,51 @@
+
+clc;
+clear;
+close all;
+
+% Create a 100-by-100 map
+grid = zeros(100,100);
+
+% Add rectangular obstacles
+grid(25:65, 35:42) = 1;
+grid(45:85, 65:72) = 1;
+grid(10:20, 75:90) = 1;
+
+% Start and goal positions [row, column]
+start = [5 5];
+goal = [90 90];
+
+% Run Theta*
+path = theta_star(grid, start, goal);
+
+% Display map and planned route
+figure;
+imagesc(grid);
+colormap(flipud(gray));
+axis equal;
+axis ij;
+hold on;
+grid on;
+
+if ~isempty(path)
+    plot(path(:,2), path(:,1), 'b-', 'LineWidth', 2);
+    plot(start(2), start(1), 'go', ...
+        'MarkerFaceColor', 'g', 'MarkerSize', 9);
+    plot(goal(2), goal(1), 'ro', ...
+        'MarkerFaceColor', 'r', 'MarkerSize', 9);
+    title('Theta* Planned Path');
+    legend('Planned path','Start','Goal');
+else
+    title('No path found');
+end
+
+xlabel('Column');
+ylabel('Row');
+
+% Display path length
+if ~isempty(path)
+    segmentLengths = sqrt(sum(diff(path).^2,2));
+    fprintf('Number of path points: %d\n', size(path,1));
+    fprintf('Total path length: %.2f cells\n', ...
+        sum(segmentLengths));
+end
