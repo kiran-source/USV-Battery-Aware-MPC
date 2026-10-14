@@ -214,10 +214,19 @@ fprintf('Summary table saved to results_summary.csv\n\n');
 %% Step 6: Generate the 6 Required Comparative Graphs
 fprintf('[4/5] Generating and exporting 6 required comparative graphs...\n');
 
-% Set clean plotting styling
+% Set clean plotting styling with white background
+set(groot, 'DefaultFigureColor', 'w');
+set(groot, 'DefaultAxesColor', 'w');
+set(groot, 'DefaultAxesXColor', [0.15 0.15 0.15]);
+set(groot, 'DefaultAxesYColor', [0.15 0.15 0.15]);
+set(groot, 'DefaultTextColor', [0.1 0.1 0.1]);
+set(groot, 'DefaultLegendColor', 'w');
+set(groot, 'DefaultLegendTextColor', [0.1 0.1 0.1]);
+set(groot, 'DefaultLegendEdgeColor', [0.8 0.8 0.8]);
 set(groot, 'DefaultAxesFontSize', 11);
 set(groot, 'DefaultLineLineWidth', 1.8);
-set(groot, 'DefaultAxesGridAlpha', 0.25);
+set(groot, 'DefaultAxesGridAlpha', 0.5);
+set(groot, 'DefaultAxesGridColor', [0.85 0.85 0.85]);
 
 %% Graph 1: Desired Speed vs Actual Speed (PID vs Battery-Aware MPC)
 fig1 = figure('Name', 'Graph 1: Desired vs Actual Speed', 'Position', [100, 100, 950, 600], 'Color', 'w');

@@ -155,22 +155,24 @@ figure('Color','w');
 imagesc(x,y,occupancyMap);
 set(gca,'YDir','normal');
 axis equal tight;
-colormap([0.2 0.65 0.85; 0.35 0.35 0.35]);
+colormap([0.90 0.95 1.00; 0.45 0.38 0.30]); % light water, slate obstacles
 hold on;
+grid on;
+set(gca, 'Color', 'w', 'XColor', [0.15 0.15 0.15], 'YColor', [0.15 0.15 0.15], 'GridColor', [0.85 0.85 0.85], 'GridAlpha', 0.5);
 
 plot(startPoint(1),startPoint(2),'go', ...
-    'MarkerFaceColor','g','MarkerSize',10);
+    'MarkerFaceColor',[0.1 0.7 0.2],'MarkerSize',10);
 
 plot(goalPoint(1),goalPoint(2),'r*', ...
-    'MarkerSize',12,'LineWidth',2);
+    'MarkerSize',14,'LineWidth',2);
 
-plot(pathXY(:,1),pathXY(:,2),'y-', ...
-    'LineWidth',2);
+plot(pathXY(:,1),pathXY(:,2),'-', ...
+    'Color', [0.85 0.20 0.10], 'LineWidth', 2.5);
 
-title('Theta* Automatically Generated Path');
-xlabel('X Position (m)');
-ylabel('Y Position (m)');
-legend('Start','Destination','Theta* Path');
+title('Theta* Automatically Generated Path', 'FontWeight', 'bold', 'Color', [0.1 0.1 0.1]);
+xlabel('X Position (m)', 'Color', [0.15 0.15 0.15]);
+ylabel('Y Position (m)', 'Color', [0.15 0.15 0.15]);
+legend('Start','Destination','Theta* Path', 'Location', 'best', 'Color', 'w', 'EdgeColor', [0.8 0.8 0.8]);
 
 % Save generated route
 save('theta_star_path.mat','pathXY','startPoint','goalPoint');

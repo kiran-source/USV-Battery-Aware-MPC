@@ -33,15 +33,15 @@ function animate_USV_mission(res, playback_speed, save_gif)
     
     %% 1. INITIALIZE FIGURE & CANVAS
     fig = figure('Name', 'USV Marine Hydrodynamic Simulator', ...
-        'Position', [50, 50, 1200, 750], 'Color', [0.05 0.08 0.14]);
-    ax = axes('Parent', fig, 'Color', [0.08 0.12 0.20], 'Position', [0.05 0.08 0.65 0.85]);
+        'Position', [50, 50, 1200, 750], 'Color', 'w');
+    ax = axes('Parent', fig, 'Color', 'w', 'Position', [0.05 0.08 0.65 0.85]);
     axis equal; grid on; hold on;
-    set(ax, 'XColor', [0.4 0.6 0.8], 'YColor', [0.4 0.6 0.8], 'GridColor', [0.2 0.3 0.45]);
+    set(ax, 'XColor', [0.15 0.15 0.15], 'YColor', [0.15 0.15 0.15], 'GridColor', [0.85 0.85 0.85], 'GridAlpha', 0.6);
     
     xlim([-100, 1400]); ylim([-200, 850]);
-    xlabel('East X [meters]', 'Color', 'w', 'FontSize', 11);
-    ylabel('North Y [meters]', 'Color', 'w', 'FontSize', 11);
-    title('2D HYDRODYNAMIC MARINE SIMULATOR (BATTERY-AWARE MPC)', 'Color', 'w', 'FontSize', 13, 'FontWeight', 'bold');
+    xlabel('East X [meters]', 'Color', [0.1 0.1 0.1], 'FontSize', 11);
+    ylabel('North Y [meters]', 'Color', [0.1 0.1 0.1], 'FontSize', 11);
+    title('2D HYDRODYNAMIC MARINE SIMULATOR (BATTERY-AWARE MPC)', 'Color', [0.05 0.15 0.3], 'FontSize', 13, 'FontWeight', 'bold');
     
     %% 2. RENDER STATIC ENVIRONMENT (Obstacles, Islands, Waypoints)
     map_data = res.map_data;
@@ -105,52 +105,52 @@ function animate_USV_mission(res, playback_speed, save_gif)
             'Color', [0.2 0.45 0.70], 'LineWidth', 1.2);
     end
     
-    legend(ax, 'Location', 'northwest', 'TextColor', 'w', 'Color', [0.1 0.15 0.22]);
+    legend(ax, 'Location', 'northwest', 'TextColor', [0.1 0.1 0.1], 'Color', 'w', 'EdgeColor', [0.8 0.8 0.8]);
     
     %% 4. TELEMETRY HUD PANEL (On the Right)
     hud_panel = uipanel('Parent', fig, 'Position', [0.72, 0.08, 0.25, 0.85], ...
-        'BackgroundColor', [0.10 0.13 0.18], 'ForegroundColor', 'w', ...
+        'BackgroundColor', [0.94 0.96 0.99], 'ForegroundColor', [0.08 0.18 0.35], ...
         'Title', 'LIVE VESSEL TELEMETRY', 'FontSize', 11, 'FontWeight', 'bold');
     
     h_time_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.91, 0.90, 0.06], 'String', 'TIME: 0.0 s', ...
-        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', 'c', 'BackgroundColor', [0.15 0.18 0.25]);
+        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.1 0.3 0.65], 'BackgroundColor', [0.88 0.92 0.98]);
     
     h_speed_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.82, 0.90, 0.06], 'String', 'SURGE SPEED: 0.00 m/s', ...
-        'FontSize', 11, 'ForegroundColor', 'w', 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.1 0.1 0.1], 'BackgroundColor', 'w');
     
     h_heading_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.74, 0.90, 0.06], 'String', 'HEADING: 0.0 deg', ...
-        'FontSize', 11, 'ForegroundColor', 'w', 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.1 0.1 0.1], 'BackgroundColor', 'w');
     
     h_soc_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.65, 0.90, 0.06], 'String', 'BATTERY: 80.0% SOC', ...
-        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.2 0.9 0.3], 'BackgroundColor', [0.15 0.22 0.20]);
+        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.1 0.6 0.2], 'BackgroundColor', [0.90 0.97 0.92]);
     
     h_power_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.56, 0.90, 0.06], 'String', 'POWER: 0.0 Watts', ...
-        'FontSize', 11, 'ForegroundColor', 'y', 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.8 0.35 0.0], 'BackgroundColor', 'w');
     
     h_energy_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.47, 0.90, 0.06], 'String', 'ENERGY: 0.0 Wh', ...
-        'FontSize', 11, 'ForegroundColor', 'w', 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.1 0.1 0.1], 'BackgroundColor', 'w');
     
     h_thrust_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.38, 0.90, 0.06], 'String', 'THRUST (T): 0.0 N', ...
-        'FontSize', 11, 'ForegroundColor', 'w', 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.1 0.1 0.1], 'BackgroundColor', 'w');
     
     h_range_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.29, 0.90, 0.06], 'String', 'EST RANGE: 0.0 m', ...
-        'FontSize', 11, 'ForegroundColor', [0.9 0.6 0.9], 'BackgroundColor', [0.12 0.15 0.20]);
+        'FontSize', 11, 'ForegroundColor', [0.6 0.15 0.6], 'BackgroundColor', 'w');
     
     h_mode_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.18, 0.90, 0.08], 'String', 'MODE: CRUISE', ...
-        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', 'g', 'BackgroundColor', [0.10 0.25 0.15]);
+        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.1 0.55 0.2], 'BackgroundColor', [0.90 0.97 0.92]);
     
     h_feas_txt = uicontrol('Parent', hud_panel, 'Style', 'text', 'Units', 'normalized', ...
         'Position', [0.05, 0.06, 0.90, 0.08], 'String', 'STATUS: FEASIBLE', ...
-        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.2 0.9 0.4], 'BackgroundColor', [0.10 0.25 0.15]);
+        'FontSize', 12, 'FontWeight', 'bold', 'ForegroundColor', [0.1 0.55 0.2], 'BackgroundColor', [0.90 0.97 0.92]);
     
     %% 5. ANIMATION PLAYBACK LOOP
     dt_sim = res.t(2) - res.t(1);

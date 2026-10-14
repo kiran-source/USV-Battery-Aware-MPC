@@ -19,13 +19,14 @@ goal = [90 90];
 path = theta_star(grid, start, goal);
 
 % Display map and planned route
-figure;
+figure('Color', 'w');
 imagesc(grid);
-colormap(flipud(gray));
-axis equal;
+colormap([1 1 1; 0.30 0.35 0.42]);
+axis equal tight;
 axis ij;
 hold on;
 grid on;
+set(gca, 'Color', 'w', 'XColor', [0.15 0.15 0.15], 'YColor', [0.15 0.15 0.15], 'GridColor', [0.85 0.85 0.85], 'GridAlpha', 0.5);
 
 if ~isempty(path)
     plot(path(:,2), path(:,1), 'b-', 'LineWidth', 2);
